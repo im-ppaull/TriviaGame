@@ -1,15 +1,36 @@
-const Header = () => {
-    return (
-        <div className="flex items-center justify-between text-sm font-medium">
-            <h1>DEV TRIVIA</h1>
+import { SignInButton, UserButton } from "@clerk/clerk-react";
+import { Authenticated, Unauthenticated } from "convex/react";
 
-            <h1>[Profile]</h1>
+import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
 
-            <div className="w-[50px] h-[50px] rounded-full overflow-hidden">
-                <img src="https://i.postimg.cc/qqst3Zn9/Sugar-Beach-St-Lucia-Getty-Images-909821450.jpg" />
-            </div>
+export default function Header() {
+  return (
+    <header className="container py-4 px-16">
+      <nav className="flex items-center gap-8">
+        <Link className="block" to="/">
+          <p className="my-2 font-extrabold uppercase">
+            Dev Trivia
+          </p>
+        </Link>
+        
+        <ul className="flex ml-auto items-center">
+          <li>
+            <Link to="/profile">[Profile]</Link>
+          </li>
+        </ul>
+
+        <div className="ml-auto">
+          <Authenticated>
+            <UserButton />
+          </Authenticated>
+          <Unauthenticated>
+            <SignInButton mode="modal">
+              <Button className="ml-auto text-white border-2 border-white cursor-pointer hover:bg-amber-300/50">Sign in</Button>
+            </SignInButton>
+          </Unauthenticated>
         </div>
-    )
+      </nav>
+    </header>
+  );
 }
-
-export default Header;
